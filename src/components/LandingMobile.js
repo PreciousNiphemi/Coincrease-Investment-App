@@ -9,6 +9,7 @@ import ThumbUpOutlinedIcon from '@material-ui/icons/ThumbUpOutlined';
 import LocalAtmOutlinedIcon from '@material-ui/icons/LocalAtmOutlined';
 import { useAuth } from '../context/AuthContext';
 import Chart from './Chart';
+import Calculator from './Calculator';
 
 const useStyles = makeStyles({
     hero: {
@@ -134,6 +135,10 @@ function LandingMobile() {
                         </div>
                     </div>
                     </div>
+                </div>
+
+                <div >
+                    <Calculator />
                 </div>
 
                 <div className={classes.belowHero} >

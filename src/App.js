@@ -11,6 +11,9 @@ import './App.css';
 import { AuthProvider } from './context/AuthContext';
 import PrivateRoute from './components/PrivateRoute';
 import ForgotPassword from './components/ForgotPassword';
+import Calculator from './components/Calculator';
+import EmailVerified from './components/EmailVerified';
+import GetALoan from './components/GetALoan';
 
 function App() {
   return (          
@@ -30,6 +33,13 @@ function App() {
                 <Route path='/forgotPassword' >
                     <ForgotPassword />
                 </Route>
+                <Route path='/calculator' >
+                    <Calculator />
+                </Route>
+                <Route path='/email-verify' >
+                    <EmailVerified />
+                </Route>
+                <PrivateRoute path='/get-a-loan' component={GetALoan} />
                 <PrivateRoute path='/account' component={Account} />
                 <PrivateRoute path='/invest' component={Invest} />
           </Switch>

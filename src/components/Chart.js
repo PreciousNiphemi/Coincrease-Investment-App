@@ -1,10 +1,30 @@
 import React, {useState, useEffect, useRef} from 'react';
 import CryptoDashboard from './CryptoDashboard';
 import {formatData} from './util';
+import {Hidden, makeStyles} from '@material-ui/core'
+
+const useStyles = makeStyles({
+    select: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginBottom: '40px'
+    },
+    mainChart: {
+        height: '400px',
+        width: '1000px',
+        marginBottom: '50px'
+    },
+    mainChartSm: {
+        width: '100%',
+        height: '300px',
+        marginBottom: '90px'
+    }
+});
 
 function Chart() {
+    const classes = useStyles();
     const [currencies, setCurrencies] = useState([]);
-    const [pair, setPair] = useState('');
+    const [pair, setPair] = useState('BTC/USD');
     const [price, setPrice] = useState('0.00');
     const [pastData, setPastdata] = useState('0.00');
     const ws = useRef(null);
@@ -96,15 +116,39 @@ function Chart() {
     }
 
     return (
-        <div>
-            {<select name='currency' value={pair} onChange={handleSelect} >
-                {currencies.map((cur,idx) => {
-                    return <option key={idx} value={cur.id}>{cur.display_name}</option>
-                })}    
-            </select>}
+       <>
+            <Hidden smDown>
+            <div className={classes.mainChart} >
+                {
+                    <div className={classes.select} >
+                        <select name='currency' value={pair} onChange={handleSelect} >
+                            {currencies.map((cur,idx) => {
+                                return <option key={idx} value={cur.id}>{cur.display_name}</option>
+                            })}    
+                        </select>
+                    </div>
+                }
 
-            <CryptoDashboard price={price} data={pastData} />
-        </div>
+                <CryptoDashboard price={price} data={pastData} />
+            </div>
+            </Hidden>
+
+            <Hidden mdUp>
+                <div className={classes.mainChartSm} >
+                    {
+                        <div className={classes.select} >
+                            <select name='currency' value={pair} onChange={handleSelect} >
+                                {currencies.map((cur,idx) => {
+                                    return <option key={idx} value={cur.id}>{cur.display_name}</option>
+                                })}    
+                            </select>
+                        </div>
+                    }
+
+                    <CryptoDashboard price={price} data={pastData} />
+                </div>
+            </Hidden>
+       </>
     )
 }
 

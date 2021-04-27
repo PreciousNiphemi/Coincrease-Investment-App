@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles, AppBar, Toolbar, Hidden, List, ListItem, Drawer } from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Hidden, List, ListItem, Drawer, Avatar } from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+// import LockOpenIcon from '@material-ui/icons/LockOpen';
+// import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import MenuIcon from '@material-ui/icons/Menu';
 import StringData from '../context/StringData'
 
@@ -51,7 +51,7 @@ const useStyles = makeStyles({
         margin: '0px 20px', 
         fontFamily: 'Montserrat',
         fontWeight: 'bold',
-        color: '#F6CD2D',
+        color: '#013972',
         transition: '.5s',
         '&:hover': {
             borderBottom: '1px solid #F6CD2D',
@@ -66,6 +66,7 @@ function HeaderMobile({ user, signOut }) {
     const [navBackground, setNavBackground] = useState('appBar');
     const [open, setOpen] = useState(false);
     const Name = localStorage.getItem(StringData.FirstName)
+    const PhotoURL = localStorage.getItem(StringData.PhotoURL)
 
       const navRef = React.useRef()
       navRef.current = navBackground
@@ -97,25 +98,17 @@ function HeaderMobile({ user, signOut }) {
             <Hidden mdUp>
                 <AppBar position='fixed' className={classes[navRef.current]}  >
                 <Toolbar className={classes.toolBarSm} >
-                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
+                   <Link to='/' >
+                   <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-around'}}>
                         <img src="logo.png" alt="" style={{width: '30px', height: '30px'}}/>
                     </div>
-                    <div style={{display: 'flex', alignItems: 'center'}} >
+                   </Link>
+                    <div style={{display: 'flex', alignItems: 'center', marginLeft: '160px'}} >
                         <div>
-                            {user && <p style={{marginTop: '15px', fontSize: '12px', margin: '0px 10px', marginLeft: '120px', color: '#F6CD2D'}} >Hi, {Name}</p>}
-                        </div>
-                        <div>
-                        {user ?  <Link style={{margin: '0px 20px', textDecoration: 'none', margin: '0px 10px'}} to='/signin'>
-                        <button onClick={signOut} className={classes.headerBtn} >
-                            <span style={{fontFamily: 'Montserrat'}} ><ExitToAppIcon /></span>
-                        </button>
-                        </Link> : 
-                        <Link style={{margin: '0px 20px', textDecoration: 'none'}} to='/signin'>
-                        <button className={classes.headerBtn} >
-                            <span style={{fontFamily: 'Montserrat'}} ><LockOpenIcon/></span>
-                        </button>
-                        </Link>
-                        }
+                            {Name && <div style={{display: 'flex', alignItems: 'center'}} >
+                           <Avatar style={{width: '35px', height: '35px' }} variant='circle' src={PhotoURL} />
+                            <h6 style={{marginLeft: '5px', marginTop: '10px', color: 'white', fontSize: '15px'}} >{Name}</h6>
+                           </div>}
                         </div>
                     </div>
                     <div>
@@ -136,9 +129,19 @@ function HeaderMobile({ user, signOut }) {
                                         <h5>Invest</h5>
                                     </ListItem>
                                 </Link>
+                                <Link className={classes.navLink} to='/get-a-loan ' >
+                                    <ListItem button>
+                                        <h5>Get A Loan</h5>
+                                    </ListItem>
+                                </Link>
                                 <Link className={classes.navLink} to='/account' >
                                     <ListItem button>
-                                        <h5>My Account</h5>
+                                        <h5>Settings</h5>
+                                    </ListItem>
+                                </Link>
+                                <Link onClick={signOut} className={classes.navLink} to='/signin' >
+                                    <ListItem button>
+                                        {Name ? <h5 style={{color: 'red'}} >Sign Out</h5> : <h5 style={{color: 'red'}} >Sign In</h5>}
                                     </ListItem>
                                 </Link>
                                

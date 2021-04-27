@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {CircularProgress, Divider, Hidden, makeStyles } from '@material-ui/core';
 import {Link, useHistory} from 'react-router-dom';
-import {db} from './firebase';
+import {db, auth} from './firebase';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import SignupMobile from './SignupMobile';
@@ -107,7 +107,8 @@ function Signup() {
    
    const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
+        setError(null)
 
         if(firstName === '' || lastName === '' || phone === ''){
             return (
@@ -118,6 +119,8 @@ function Signup() {
             setError(null)
             setLoading(true)
             signUp(email, password).then(res => {
+                const user = auth.currentUser;
+                user.sendEmailVerification();
                 db.collection('users').doc().set({
                     firstName,
                     lastName,
@@ -137,7 +140,7 @@ function Signup() {
                     // localStorage.setItem(StringData.FirebaseDocumentId, ref.id);
                 })
                 if(res){
-                    history.push('/')
+                    history.push('/email-verify')
                 }
             }).catch(err => {
                 console.error(err)
@@ -156,9 +159,7 @@ function Signup() {
                 <div className={classes.signIn} >
                 <div className={classes.signBox} >
                     <div style={{display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center' }} >
-                        <Link style={{textDecoration: 'none', color: 'white'}} to='/' >
-                                <h2 style={{fontFamily: 'Montserrat Alternates'}} >Coincrease</h2>
-                        </Link>
+                                <h2 style={{fontFamily: 'Montserrat Alternates', color: 'white'}} >Coincrease</h2>
                     </div>
                     <form onSubmit={handleSubmit} action="" style={{display: 'block' }} >
                         <div>

@@ -102,7 +102,8 @@ function Signin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true)
+        setLoading(true);
+        setError(null)
 
         if(email === '' || password === ''){
             return (
@@ -126,7 +127,7 @@ function Signin() {
                         localStorage.setItem(StringData.PhotoURL, currentData.URL)
                         localStorage.setItem(StringData.Description, currentData.description)
                 if(res) {
-                    history.push('/')
+                    history.push('/account')
                 }
             })
         })
@@ -151,9 +152,7 @@ function Signin() {
                 <div className={classes.signIn} >
                 <div className={classes.signBox} >
                     <div style={{display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center' }} >
-                        <Link style={{textDecoration: 'none', color: 'white'}} to='/' >
-                            <h2 style={{fontFamily: 'Montserrat Alternates'}} >Coincrease</h2>
-                        </Link>
+                            <h2 style={{fontFamily: 'Montserrat Alternates', color: 'white'}} >Coincrease</h2>
                     </div>
                     <form onSubmit={handleSubmit} action="" style={{display: 'block' }} >
                         <div>

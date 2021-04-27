@@ -9,7 +9,7 @@ import LocalAtmOutlinedIcon from '@material-ui/icons/LocalAtmOutlined';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 import { useAuth } from '../context/AuthContext';
-import Chart from './Chart';
+// import Chart from './Chart';
 
 const useStyles = makeStyles({
     hero: {
@@ -120,7 +120,7 @@ function Landing() {
     return (
         <div>
             <Hidden smDown>
-            <Header user={currentUser} signOut={signOut} />
+            <Header />
                <div className={classes.hero} >
                 <div className={classes.heroContent} >
                     <div className={classes.heroText} >
@@ -208,7 +208,7 @@ function Landing() {
                    </div>
                </div>
 
-               <Chart />
+               {/* <Chart /> */}
             </Hidden>
             <LandingMobile />
         </div>
